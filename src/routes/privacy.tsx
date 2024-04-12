@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import Footer from "../components/footer/footer.organism";
 import Header from "../components/ui/header";
 import Page from "../components/ui/page";
@@ -7,6 +7,7 @@ import { MetaTags } from "../components/ui/meta-tags";
 import { PagesURL } from "./consts";
 import ReactGA from "react-ga4";
 import { useEffect } from "react";
+import logo from "./../assets/logo-dark.png";
 
 export const PrivacyPolicyPage = () => {
   useEffect(() => {
@@ -552,6 +553,7 @@ export const PrivacyPolicyPage = () => {
             stated otherwise within this document.
           </Text>
         </Flex>
+        <Image src={logo} m={"0 auto"} />
       </Flex>
       <Footer />
     </Page>

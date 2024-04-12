@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Image } from "@chakra-ui/react";
 import Footer from "../components/footer/footer.organism";
 import Header from "../components/ui/header";
 import Page from "../components/ui/page";
@@ -7,6 +7,7 @@ import { MetaTags } from "../components/ui/meta-tags";
 import { PagesURL } from "./consts";
 import ReactGA from "react-ga4";
 import { useEffect } from "react";
+import logo from "./../assets/logo-dark.png";
 
 export const TOUPage = () => {
   useEffect(() => {
@@ -625,6 +626,7 @@ export const TOUPage = () => {
             on our site.
           </Text>
         </Flex>
+        <Image src={logo} m={"0 auto"} />
       </Flex>
       <Footer />
     </Page>
