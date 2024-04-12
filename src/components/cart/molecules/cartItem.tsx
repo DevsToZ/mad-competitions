@@ -14,7 +14,7 @@ import { useContext, useState } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ICONS_SIZE_SMALL, MAX_TICKET_NUMBER } from "../../../lib/consts";
-
+import ReactGA from "react-ga4";
 import { CartContext } from "../core/cart.context";
 
 const CartItem = ({
@@ -62,7 +62,13 @@ const CartItem = ({
           <IconButton
             outline={"none"}
             _hover={{ borderColor: "transparent" }}
-            onClick={() => cart.deleteFromCart(id)}
+            onClick={() => {
+              cart.deleteFromCart(id);
+              ReactGA.event({
+                category: "User",
+                action: `Deleted from cart - ${id}`,
+              });
+            }}
             justifyItems={"center"}
             alignItems={"center"}
             aria-label={"Remove Item"}

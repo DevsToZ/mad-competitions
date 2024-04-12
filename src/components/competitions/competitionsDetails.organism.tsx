@@ -40,6 +40,7 @@ import Timer from "./atoms/timer";
 import { GetCompetitionById } from "./core/competitions.service";
 import { MetaTags } from "../ui/meta-tags";
 import { PagesURL } from "../../routes/consts";
+import ReactGA from "react-ga4";
 
 const CompetitionDetails = () => {
   const cart = useContext(CartContext);
@@ -94,6 +95,10 @@ const CompetitionDetails = () => {
       type: "success",
       text: `Added tickets to cart.`,
       toast,
+    });
+    ReactGA.event({
+      category: "User",
+      action: "Added to cart",
     });
   };
 

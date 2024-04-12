@@ -15,6 +15,7 @@ import { PagesURL } from "./consts";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { cartItemsAtom } from "../components/cart/utils/cart.recoil";
+import ReactGA from "react-ga4";
 
 export const PaymentSuccessPage = () => {
   const [isTablet] = useMediaQuery("(min-width: 768px)", { ssr: false });
@@ -24,6 +25,10 @@ export const PaymentSuccessPage = () => {
 
   useEffect(() => {
     setCartItems([]);
+  }, []);
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
   }, []);
   return (
     <Page>

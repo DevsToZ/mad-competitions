@@ -6,6 +6,7 @@ import { cartItemsAtom } from "../utils/cart.recoil";
 import { Checkout } from "../core/cart.service";
 import useAxios from "../../../lib/axios/useAxios";
 import { displayToast } from "../../ui/toast";
+import ReactGA from "react-ga4";
 
 const CartSummary = () => {
   const cart = useContext(CartContext);
@@ -25,6 +26,10 @@ const CartSummary = () => {
   }, [cart]);
 
   const handleCheckout = () => {
+    ReactGA.event({
+      category: "User",
+      action: `Clicked on checkout`,
+    });
     const itms = cartItems.map((item) => {
       return {
         competitionId: item.id,

@@ -4,9 +4,14 @@ import Page from "../components/ui/page";
 import { useNavigate } from "react-router-dom";
 import { PagesURL } from "./consts";
 import Logo from "../components/ui/logo";
+import ReactGA from "react-ga4";
+import { useEffect } from "react";
 
 const ErrorPage = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
+  }, []);
   return (
     <Page>
       <Flex

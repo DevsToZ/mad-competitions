@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-import { WEBSITE_NAME } from "../../lib/consts";
+import { FRONT_END_BASE_URL, WEBSITE_NAME } from "../../lib/consts";
 import logo from "./../../assets/logo.png";
 
 interface MetaTags {
@@ -17,7 +17,6 @@ export const MetaTags = ({
   secondary_description,
   url,
 }: MetaTags) => {
-  const FRONTEND_BASE_URL = "http://localhost:5173";
   return (
     <Helmet>
       <title>{`${WEBSITE_NAME} - ${title}`}</title>
@@ -25,7 +24,7 @@ export const MetaTags = ({
       <meta property="og:title" content={title} />
       <meta property="og:description" content={secondary_description} />
       <meta property="og:image" content={image} />
-      <meta property="og:url" content={`${FRONTEND_BASE_URL}${url}`} />
+      <meta property="og:url" content={`${FRONT_END_BASE_URL}${url}`} />
       <meta property="og:type" content="website" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={secondary_description} />

@@ -6,12 +6,17 @@ import Page from "../components/ui/page";
 import Header from "../components/ui/header";
 import Footer from "../components/footer/footer.organism";
 import Winners from "../components/winners/winners.organism";
+import ReactGA from "react-ga4";
 
 const WinnersPage = () => {
   const [, setIsActive] = useRecoilState(currentActivePageAtom);
 
   useEffect(() => {
     setIsActive(LinkIDS.WINNERS);
+  }, []);
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
   }, []);
   return (
     <Page>

@@ -23,6 +23,7 @@ import { displayToast } from "../ui/toast";
 import { Pagination } from "../ui/pagination";
 import { Filters } from "../ui/filters";
 import { MetaTags } from "../ui/meta-tags";
+import ReactGA from "react-ga4";
 
 const Competitions = () => {
   const toast = useToast();
@@ -120,7 +121,13 @@ const Competitions = () => {
               tag={card.tag}
               title={card.title}
               currentTicketNumber={card.currentTicketNumber}
-              onClick={() => navigate(`${PagesURL.COMPETITIONS}/${card.id}`)}
+              onClick={() => {
+                navigate(`${PagesURL.COMPETITIONS}/${card.id}`);
+                ReactGA.event({
+                  category: "User",
+                  action: `Clicked on ${card.title}`,
+                });
+              }}
             />
           ))
         )}

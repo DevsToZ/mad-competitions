@@ -1,10 +1,5 @@
 import { Flex, Text, useMediaQuery } from "@chakra-ui/react";
-import {
-  faFacebook,
-  faInstagram,
-  faTiktok,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
+import { faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ICONS_SIZE } from "../../../lib/consts";

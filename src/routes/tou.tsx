@@ -5,8 +5,13 @@ import Page from "../components/ui/page";
 import { Link } from "react-router-dom";
 import { MetaTags } from "../components/ui/meta-tags";
 import { PagesURL } from "./consts";
+import ReactGA from "react-ga4";
+import { useEffect } from "react";
 
 export const TOUPage = () => {
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
+  }, []);
   return (
     <Page>
       <MetaTags

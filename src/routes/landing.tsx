@@ -5,12 +5,17 @@ import { currentActivePageAtom } from "../components/navigation/utils/navigation
 import { LinkIDS } from "../components/navigation/utils/consts";
 import Footer from "../components/footer/footer.organism";
 import { Landing } from "../components/landing/landing.organism";
+import ReactGA from "react-ga4";
 
 const LandingPage = () => {
   const [, setIsActive] = useRecoilState(currentActivePageAtom);
 
   useEffect(() => {
     setIsActive(LinkIDS.HOME);
+  }, []);
+
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
   }, []);
 
   return (
