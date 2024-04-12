@@ -19,7 +19,7 @@ const Price = ({ price, color }: PriceProps) => {
         fontWeight={"bold"}
         display={"inline"}
       >
-        {`$${price}`}
+        {`£${price}`}
       </Text>
       <Text color={color} fontSize={"xs"} display={"inline"} ml={1}>
         Per Entry

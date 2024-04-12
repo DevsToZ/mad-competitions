@@ -80,7 +80,7 @@ const CartSummary = () => {
           <Flex gap={8}>
             <Text w={"50%"}>Subtotal:</Text>
             {/* @ts-ignore */}
-            <Text w={"50%"}>{`${totalCost.toFixed(2)}`}$</Text>
+            <Text w={"50%"}>{`${totalCost.toFixed(2)}`}£</Text>
           </Flex>
           <Flex gap={8}>
             <Text w={"50%"}>Total tickets: </Text>

@@ -98,9 +98,9 @@ const CartItem = ({
                 </NumberInputStepper>
               </NumberInput>
             </Flex>
-            <Text>x {price}$</Text>
+            <Text>x {price}£</Text>
           </Flex>
-          <Text>{(price * itemAmount).toFixed(2)}$</Text>
+          <Text>{(price * itemAmount).toFixed(2)}£</Text>
         </Flex>
       </Flex>
     </Flex>
