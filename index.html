@@ -25,10 +25,22 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
     <script type="module">
       import ReactGA from "react-ga4";
       import { TRACKING_ID } from "./src/lib/consts.ts";
       ReactGA.initialize(TRACKING_ID);
+      window.va =
+        window.va ||
+        function () {
+          (window.vaq = window.vaq || []).push(arguments);
+        };
+      window.si =
+        window.si ||
+        function () {
+          (window.siq = window.siq || []).push(arguments);
+        };
     </script>
   </body>
 </html>
