@@ -11,7 +11,8 @@
     <script type="module" src="/src/main.tsx"></script>
     <script type="module">
       import ReactGA from "react-ga4";
-      ReactGA.initialize("Your-Measurement-ID");
+      import { TRACKING_ID } from "./src/lib/consts.ts";
+      ReactGA.initialize(TRACKING_ID);
     </script>
   </body>
 </html>
