@@ -5,7 +5,7 @@ import { MAX_TICKET_NUMBER } from "../../../lib/consts";
 
 export const CartContext = createContext({
   items: [],
-  getProductQuantity: () => {},
+  getProductQuantity: (_id?: string) => {},
   addOneToCart: (_id: string) => {},
   addAmountToCart: (
     _id: string,

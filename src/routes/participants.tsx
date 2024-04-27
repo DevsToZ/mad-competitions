@@ -1,4 +1,17 @@
-import { Flex, Text, useToast } from "@chakra-ui/react";
+import {
+  Flex,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+  useToast,
+} from "@chakra-ui/react";
 import Footer from "../components/footer/footer.organism";
 import Header from "../components/ui/header";
 import Page from "../components/ui/page";
@@ -32,30 +45,41 @@ export const ParticipantsPage = () => {
   }, [error]);
   return (
     <Page>
-      <Header title="Privacy Policy" />
+      <Header title="Participants" />
 
       <Flex
         justifyContent={"center"}
-        alignItems={"center"}
         flexWrap={"wrap"}
-        gap={4}
         color={"white"}
         my={8}
+        minH={"53vh"}
       >
-        {data?.map((participant: any, idx: number) =>
-          participant.tickets.map((ticket: any, index: number) => (
-            <Flex
-              key={`${participant}-${idx}-${index}`}
-              w={"40%"}
-              bg={"gray.700"}
-              p={4}
-            >
-              <Text
-                key={`${participant.id}-${ticket.id}-${idx}-${index}`}
-              >{`${ticket} - ${participant.name}`}</Text>
-            </Flex>
-          ))
-        )}
+        <TableContainer>
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>Ticket Number</Th>
+                <Th>Participant</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data?.map((participant: any, idx: number) =>
+                participant.tickets.map((ticket: any, index: number) => (
+                  <Tr key={`${participant.id}-${ticket.id}-${idx}-${index}`}>
+                    <Td>{ticket}</Td>
+                    <Td>{participant.name}</Td>
+                  </Tr>
+                ))
+              )}
+              {data?.length === 0 && (
+                <Tr>
+                  <Td>-</Td>
+                  <Td>There are no participants yet.</Td>
+                </Tr>
+              )}
+            </Tbody>
+          </Table>
+        </TableContainer>
       </Flex>
       <Footer />
     </Page>

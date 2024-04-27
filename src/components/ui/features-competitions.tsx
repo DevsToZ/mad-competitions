@@ -80,7 +80,7 @@ export const FeaturedCompetitions = ({ tag }: FeaturedCompetitionsProps) => {
       mb={8}
       gap={4}
       flexDir={"column"}
-      minH={"500px"}
+      minH={"400px"}
       justifyContent={"center"}
       px={4}
     >
@@ -96,7 +96,7 @@ export const FeaturedCompetitions = ({ tag }: FeaturedCompetitionsProps) => {
             margin={"0 auto"}
             bg={"black"}
             w={"100%"}
-            minH={"500px"}
+            minH={"400px"}
             gap={4}
           >
             <Splide options={thumbsOptions} aria-label="Featured Competitions">

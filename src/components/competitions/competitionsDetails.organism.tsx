@@ -50,7 +50,6 @@ const CompetitionDetails = () => {
   const navigate = useNavigate();
 
   const [questionAnswer, setQuestionAnswer] = useState("");
-  const [sliderValue, setSliderValue] = useState(20);
 
   const [isMobile] = useMediaQuery("(min-width: 0px)", { ssr: false });
   const [isTablet] = useMediaQuery("(min-width: 768px)", { ssr: false });
@@ -63,6 +62,8 @@ const CompetitionDetails = () => {
     paramsOfFetch: { id: id },
     loadOnMount: true,
   });
+
+  const [sliderValue, setSliderValue] = useState(1);
 
   const showParticipants = () => {
     navigate(`/competitions/${id}/participants`);
@@ -78,6 +79,24 @@ const CompetitionDetails = () => {
         id: "competitionsQuestion",
         type: "info",
         text: "You must answer the question before adding to cart.",
+        toast,
+      });
+      return;
+    }
+    if (data.currentTicketNumber + sliderValue >= data.maxNumberOfTickets) {
+      displayToast({
+        id: "tooManyTickets",
+        type: "warning",
+        text: "You can't add that many tickets to cart. Check your cart and change the amount.",
+        toast,
+      });
+      return;
+    }
+    if (cart.getProductQuantity(data.id) >= data.maxNumberOfTickets) {
+      displayToast({
+        id: "tooManyTickets",
+        type: "warning",
+        text: "You added the maximum amount of tickets permitted.",
         toast,
       });
       return;
@@ -143,18 +162,20 @@ const CompetitionDetails = () => {
                   {data.title}
                 </Text>
                 <Price color={"white"} price={data.pricePerTicket} />
-                <Flex flexDir={"column"} my={2} gap={4}>
-                  <Text fontSize={"xl"}>{data.question.question}</Text>
-                  <QuestionRadio
-                    options={[
-                      data.question.answer1,
-                      data.question.answer2,
-                      data.question.answer3,
-                    ]}
-                    name={"question"}
-                    onChange={(e) => e && setQuestionAnswer(e)}
-                  />
-                </Flex>
+                {data.maxNumberOfTickets >= data.currentTicketNumber && (
+                  <Flex flexDir={"column"} my={2} gap={4}>
+                    <Text fontSize={"xl"}>{data.question.question}</Text>
+                    <QuestionRadio
+                      options={[
+                        data.question.answer1,
+                        data.question.answer2,
+                        data.question.answer3,
+                      ]}
+                      name={"question"}
+                      onChange={(e) => e && setQuestionAnswer(e)}
+                    />
+                  </Flex>
+                )}
               </Flex>
               <Flex
                 flexDir={"column"}
@@ -163,36 +184,46 @@ const CompetitionDetails = () => {
                 alignItems={"space-between"}
                 mt={8}
               >
-                <TicketsSlider
-                  maxNumberOfTickets={data.maxNumberOfTickets}
-                  currentTicketNumber={data.currentTicketNumber}
-                  sliderValue={sliderValue}
-                  setSliderValue={setSliderValue}
-                />
-                <Button
-                  variant={"solid"}
-                  background={"green.400"}
-                  size={"lg"}
-                  color={"white"}
-                  textAlign={"left"}
-                  textTransform={"uppercase"}
-                  border={"2px solid white"}
-                  h={"50px"}
-                  _hover={{
-                    background: "green.400",
-                    outline: "0px",
-                    border: "2px solid white",
-                  }}
-                  onClick={() => handleAddToCart()}
-                >
-                  <Text fontSize={"lg"}>
-                    Buy Tickets{" "}
-                    <FontAwesomeIcon
-                      fontSize={ICONS_SIZE_SMALL}
-                      icon={faChevronRight}
-                    />
+                {data.maxNumberOfTickets < data.currentTicketNumber && (
+                  <Text color={"white"} fontSize={"xl"}>
+                    This competition is filled. If you bought a ticket, check
+                    our facebook page to see if you won the big prize.
                   </Text>
-                </Button>
+                )}
+                {data.maxNumberOfTickets >= data.currentTicketNumber && (
+                  <TicketsSlider
+                    maxNumberOfTickets={data.maxNumberOfTickets}
+                    currentTicketNumber={data.currentTicketNumber}
+                    sliderValue={sliderValue}
+                    setSliderValue={setSliderValue}
+                  />
+                )}
+                {data.maxNumberOfTickets >= data.currentTicketNumber && (
+                  <Button
+                    variant={"solid"}
+                    background={"green.400"}
+                    size={"lg"}
+                    color={"white"}
+                    textAlign={"left"}
+                    textTransform={"uppercase"}
+                    border={"2px solid white"}
+                    h={"50px"}
+                    _hover={{
+                      background: "green.400",
+                      outline: "0px",
+                      border: "2px solid white",
+                    }}
+                    onClick={() => handleAddToCart()}
+                  >
+                    <Text fontSize={"lg"}>
+                      Buy Tickets{" "}
+                      <FontAwesomeIcon
+                        fontSize={ICONS_SIZE_SMALL}
+                        icon={faChevronRight}
+                      />
+                    </Text>
+                  </Button>
+                )}
                 <Flex flexDir={"column"} fontWeight={"bold"} color={"white"}>
                   <Text fontSize={"lg"} opacity={0.5}>
                     Time until live draw
@@ -206,7 +237,9 @@ const CompetitionDetails = () => {
 
                 <Flex flexDir={"column"} fontWeight={"bold"} color={"white"}>
                   <Text fontSize={"lg"} opacity={0.5}>
-                    Remaining tickets
+                    {data.maxNumberOfTickets >= data.currentTicketNumber
+                      ? "Remaining tickets"
+                      : "Total entries"}
                   </Text>
                   <ProgressBar
                     ticketsBought={data.currentTicketNumber}

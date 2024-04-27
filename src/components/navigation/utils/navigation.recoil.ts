@@ -13,7 +13,10 @@ export const isAdminAtom = atom({
 
 export const tokenAtom = atom({
   key: "token",
-  default: { token: null, expiresIn: 0 },
+  default: {
+    token: null,
+    expiresIn: 0,
+  },
   effects: [localStorageEffect("idToken")],
 });
 

@@ -96,3 +96,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 .chakra-toast button {
   border-color: transparent;
 }
+
+.splide__track--nav > .splide__list > .splide__slide.is-active {
+  border: 3px solid #38a169;
+}

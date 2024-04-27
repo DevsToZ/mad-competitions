@@ -37,6 +37,11 @@ const TicketsSlider = ({
           setSliderValue(val);
       }}
       value={sliderValue}
+      max={
+        maxNumberOfTickets - currentTicketNumber > MAX_TICKET_NUMBER
+          ? MAX_TICKET_NUMBER
+          : maxNumberOfTickets - currentTicketNumber
+      }
     >
       <SliderMark
         value={sliderValue}

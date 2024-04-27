@@ -1,5 +1,4 @@
 import { Flex, Image } from "@chakra-ui/react";
-import Timer from "../atoms/timer";
 import Banner from "../atoms/banner";
 import ProgressBar from "../atoms/progress";
 import Price from "../atoms/price";
@@ -35,7 +34,7 @@ export const SmallCompetitionsCard = ({
   return (
     <Flex
       bg={"white"}
-      h={"500px"}
+      h={"400px"}
       flexDir={"column"}
       borderRadius={"md"}
       boxShadow={"5px 5px 15px 0px rgba(0,0,0,0.5)"}
@@ -56,7 +55,7 @@ export const SmallCompetitionsCard = ({
         h={"50%"}
       />
       <Banner endTime={endTime} />
-      <Timer endTime={endTime} />
+      <Flex h={"50px"} />
       <ProgressBar
         ticketsBought={currentTicketNumber}
         totalTickets={maxNumberOfTickets}

@@ -1,6 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import { DefaultErrorResult, handleError } from "../../../lib/axios/helpers";
-import { COMPETITIONS_URL, LOGIN_URL } from "../../../lib/axios/consts";
+import {
+  COMPETITIONS_URL,
+  LOGIN_URL,
+  PARTICIPANTS_URL,
+} from "../../../lib/axios/consts";
 
 export const GetCompetitions = async ({
   page = 0,
@@ -126,7 +130,7 @@ export const GetParticipants = async ({
   token: string;
 }): Promise<any | DefaultErrorResult | AxiosResponse<any, any>> => {
   try {
-    const response: any = axios.get(`participants/${id}`, {
+    const response: any = axios.get(`${PARTICIPANTS_URL}/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response;
