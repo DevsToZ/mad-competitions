@@ -15,6 +15,7 @@ import useAxios from "../../../lib/axios/useAxios";
 import { DeleteWinner } from "../core/winners.service";
 import { useEffect } from "react";
 import { displayToast } from "../../ui/toast";
+import { AxiosStatusCode } from "../../../lib/axios/helpers";
 
 interface WinnersCardProps {
   competitionName: string;
@@ -37,10 +38,8 @@ const WinnersCard = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [token] = useRecoilState(tokenAtom);
   const toast = useToast();
-  const [shouldRefetchWinner, setShouldRefetchWinner] = useRecoilState(
-    shouldRefetchWinnerAtom
-  );
-  const { data, isLoading, error, loadData } = useAxios({
+  const [, setShouldRefetchWinner] = useRecoilState(shouldRefetchWinnerAtom);
+  const { dataCode, isLoading, error, loadData } = useAxios({
     fetchFn: DeleteWinner,
     paramsOfFetch: { id: id, token: token.token },
   });
@@ -50,13 +49,14 @@ const WinnersCard = ({
   };
 
   useEffect(() => {
-    if (data) {
+    if (dataCode === AxiosStatusCode.CODE_200_OK) {
       displayToast({
         id: "winnersDeletedSuccess",
         type: "success",
         text: "Winner deleted successfully.",
         toast,
       });
+      setShouldRefetchWinner(true);
     }
     if (error) {
       displayToast({
@@ -66,14 +66,7 @@ const WinnersCard = ({
         toast,
       });
     }
-  }, [error, data]);
-
-  useEffect(() => {
-    if (shouldRefetchWinner) {
-      loadData();
-      setShouldRefetchWinner(false);
-    }
-  }, [shouldRefetchWinner]);
+  }, [error, dataCode]);
 
   return (
     <Card bg={"gray.900"} hover={""} width={width}>

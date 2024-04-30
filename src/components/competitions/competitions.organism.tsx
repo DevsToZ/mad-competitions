@@ -132,7 +132,13 @@ const Competitions = () => {
           ))
         )}
         {!isLoading && data?.length === 0 && (
-          <Flex color={"white"} opacity={0.25}>
+          <Flex
+            color={"white"}
+            opacity={0.25}
+            minH={"38vh"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
             No competitions found.
           </Flex>
         )}

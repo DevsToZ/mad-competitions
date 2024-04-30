@@ -1,6 +1,9 @@
 import WinnersCard from "./molecules/winnersCard";
 import { useRecoilState } from "recoil";
-import { isAdminAtom } from "../navigation/utils/navigation.recoil";
+import {
+  isAdminAtom,
+  shouldRefetchWinnerAtom,
+} from "../navigation/utils/navigation.recoil";
 import CardContainer from "../ui/card/cardContainer";
 import AddWinnerForm from "./molecules/addWinnerForm";
 import AddCard from "../ui/card/addCard";
@@ -17,7 +20,9 @@ const Winners = () => {
   const toast = useToast();
   const [isAdmin] = useRecoilState(isAdminAtom);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const [shouldRefetchWinner, setShouldRefetchWinner] = useRecoilState(
+    shouldRefetchWinnerAtom
+  );
   const [currentPage, setCurrentPage] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -49,6 +54,13 @@ const Winners = () => {
       });
     }
   }, [error]);
+
+  useEffect(() => {
+    if (shouldRefetchWinner === true) {
+      loadData();
+      setShouldRefetchWinner(false);
+    }
+  }, [shouldRefetchWinner]);
 
   return (
     <>
@@ -82,7 +94,7 @@ const Winners = () => {
             />
           ))
         )}
-        {!isLoading && data?.length === 0 && (
+        {!isLoading && data?.winners.length === 0 && (
           <Flex color={"white"} opacity={0.25}>
             No winners yet. Be our first winner!
           </Flex>
@@ -97,7 +109,7 @@ const Winners = () => {
         currentPage={currentPage || 0}
         //@ts-ignore
         setCurrentPage={setCurrentPage}
-        totalPages={totalPages}
+        totalPages={totalPages === 0 ? 1 : 0}
       />
     </>
   );

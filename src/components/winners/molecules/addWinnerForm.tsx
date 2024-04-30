@@ -15,7 +15,10 @@ import useAxios from "../../../lib/axios/useAxios";
 import { AddWinner } from "../core/winners.service";
 import { useEffect } from "react";
 import { displayToast } from "../../ui/toast";
-import { tokenAtom } from "../../navigation/utils/navigation.recoil";
+import {
+  shouldRefetchWinnerAtom,
+  tokenAtom,
+} from "../../navigation/utils/navigation.recoil";
 
 interface AddWinnerFormProps {
   onClose: () => void;
@@ -26,6 +29,7 @@ const AddWinnerForm = ({ onClose }: AddWinnerFormProps) => {
   const addWinnerForm = useForm();
   const [fileToUpload, setFileToUpload] = useRecoilState(fileToUploadAtom);
   const [token] = useRecoilState(tokenAtom);
+  const [, setShouldRefetchWinner] = useRecoilState(shouldRefetchWinnerAtom);
 
   const values = useFormFields({
     connect: addWinnerForm,
@@ -57,6 +61,7 @@ const AddWinnerForm = ({ onClose }: AddWinnerFormProps) => {
         toast,
       });
       onClose();
+      setShouldRefetchWinner(true);
     }
     if (error) {
       displayToast({
