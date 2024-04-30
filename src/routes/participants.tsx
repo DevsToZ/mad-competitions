@@ -1,12 +1,9 @@
 import {
   Flex,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
-  Text,
-  Tfoot,
   Th,
   Thead,
   Tr,
