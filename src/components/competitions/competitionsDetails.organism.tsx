@@ -83,7 +83,7 @@ const CompetitionDetails = () => {
       });
       return;
     }
-    if (data.currentTicketNumber + sliderValue >= data.maxNumberOfTickets) {
+    if (data.currentTicketNumber + sliderValue > data.maxNumberOfTickets) {
       displayToast({
         id: "tooManyTickets",
         type: "warning",

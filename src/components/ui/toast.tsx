@@ -3,11 +3,18 @@ interface ToastProps {
   text: string;
   toast: any;
   id: string;
+  duration?: number;
 }
 
 const TOAST_DURATION = 3000;
 
-export const displayToast = ({ type, text, toast, id }: ToastProps) => {
+export const displayToast = ({
+  type,
+  text,
+  toast,
+  id,
+  duration,
+}: ToastProps) => {
   if (toast.isActive(id)) return;
 
   switch (type) {
@@ -27,7 +34,7 @@ export const displayToast = ({ type, text, toast, id }: ToastProps) => {
         title: "Error",
         description: text,
         status: "error",
-        duration: TOAST_DURATION,
+        duration: duration || TOAST_DURATION,
         isClosable: true,
       });
       break;

@@ -51,12 +51,25 @@ const CartSummary = () => {
 
   useEffect(() => {
     if (error) {
-      displayToast({
-        id: "cartError",
-        type: "error",
-        text: "There was a problem with your checkout. Please try again.",
-        toast,
-      });
+      //@ts-ignore
+      if (error.response.data.errorCode === "INVALID_CART") {
+        displayToast({
+          id: "checkoutError",
+          type: "error",
+          text: "One or more competitions from your cart has ended or doesn't have enough tickets left. We removed it from your shopping cart.",
+          duration: 5000,
+          toast,
+        });
+      } else {
+        displayToast({
+          id: "cartError",
+          type: "error",
+          text: "There was a problem with your checkout. Please try again.",
+          toast,
+        });
+      }
+      //@ts-ignore
+      cart.deleteFromCart(error.response.data.competitionId);
     }
   }, [error]);
 
